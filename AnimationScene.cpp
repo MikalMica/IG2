@@ -135,7 +135,7 @@ AnimationScene::initSinbadAnim() {
 	SinbadAnimState->setLoop(true);
 }
 
-void // comentario de prueba
+void
 AnimationScene::initOgreHeadAnim() {
 	Animation* anim = mSM->createAnimation("OgreInitialAnimation", 20.0);
 	anim->setInterpolationMode(Ogre::Animation::IM_SPLINE);
