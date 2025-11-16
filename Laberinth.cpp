@@ -66,8 +66,8 @@ Laberinth::GenerateLaberinth(std::string in)
 	wallSize = baby->calculateBoxSize().x;
 	delete baby;
 
-	Ogre::MeshManager::getSingleton().createPlane("floor", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::Plane(Vector3::UNIT_Y, Vector3(0, -wallSize / 2.0, 0)), wallSize * cols, wallSize * fils, 100, 80, true, 1, cols/3, fils/3, Vector3::UNIT_Z);
-	Ogre::Entity* plane = mSM->createEntity("floor");
+	Ogre::MeshManager::getSingleton().createPlane("labfloor", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::Plane(Vector3::UNIT_Y, Vector3(0, -wallSize / 2.0, 0)), wallSize * cols, wallSize * fils, 100, 80, true, 1, cols/3, fils/3, Vector3::UNIT_Z);
+	Ogre::Entity* plane = mSM->createEntity("labfloor");
 	plane->setMaterialName(floorMat);
 	SceneNode* floor = createChildSceneNode();
 	floor->attachObject(plane);

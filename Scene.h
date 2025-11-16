@@ -21,14 +21,18 @@ class Scene : public OgreBites::InputListener
 {
 protected:
 	Ogre::SceneManager* mSM;
+	Ogre::SceneNode* root;
 	SinbadExample* context;
 
 public:
-	Scene(Ogre::SceneManager* SM, SinbadExample* cont)
+	Scene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNode* ro)
 		: mSM(SM)
 		, context(cont)
+		, root(ro)
 	{}
+	virtual ~Scene() {};
 
+	Ogre::SceneNode* getRoot() { return root; }
 	virtual void loadScene() = 0;
 	virtual void unloadScene() = 0;
 };

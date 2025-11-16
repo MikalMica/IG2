@@ -26,6 +26,7 @@ class SinbadExample: public OgreBites::ApplicationContext, OgreBites::InputListe
 public:
     explicit SinbadExample() : OgreBites::ApplicationContext("SinbadExample") {};
     virtual ~SinbadExample() {};
+    inline int getCurrentScene() { return currScene; }
 
     Ogre::SceneNode* getCamera() {
         std::cout << "GUILLERMO\n";
@@ -37,7 +38,7 @@ protected:
     virtual void setup();
     virtual void shutdown();
     virtual void setupScene();
-
+    virtual void changeScene(int nScene);
 
     Ogre::SceneNode* mSinbadNode = nullptr;
 

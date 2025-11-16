@@ -57,5 +57,6 @@ public:
 	double normalizeSize(Vector3 const& sizeBox);
 	void correctPosition(AliveEntity& entity);
 	Vector2 getLaberinthPosition(Vector2 const& pos);
+	Vector2 getLaberinthSize() { return Vector2(map[0].size(), map.size()); }
 };
 

@@ -14,6 +14,11 @@ bool SinbadExample::keyPressed(const OgreBites::KeyboardEvent& evt) {
         getRoot()->queueEndRendering();
     }
 
+    if (evt.keysym.sym == SDLK_s) {
+        if (currScene != 1)
+            changeScene(1);
+    }
+
     return true;
 }
 
@@ -89,12 +94,23 @@ void SinbadExample::setupScene(void) {
     //------------------------------------------------------------------------
     // Creating Scene
 
-    scenes.push_back(new AnimationScene(mSM, this));
-    scenes.push_back(new GameScene(mSM, this, mTrayMgr));
+    scenes.push_back(new AnimationScene(mSM, this, mSM->getRootSceneNode()->createChildSceneNode("AnimRoot")));
+    scenes.push_back(new GameScene(mSM, this, mSM->getRootSceneNode()->createChildSceneNode("GameRoot"), mTrayMgr));
 
     for (auto scene : scenes) {
         addInputListener(scene);
+        mSM->getRootSceneNode()->removeChild(scene->getRoot());
     }
 
+    mSM->getRootSceneNode()->addChild(scenes[currScene]->getRoot());
+    scenes[currScene]->loadScene();
+}
+
+void 
+SinbadExample::changeScene(int nScene) {
+    scenes[currScene]->unloadScene();
+    mSM->getRootSceneNode()->removeChild(scenes[currScene]->getRoot());
+    currScene = nScene;
+    mSM->getRootSceneNode()->addChild(scenes[currScene]->getRoot());
     scenes[currScene]->loadScene();
 }

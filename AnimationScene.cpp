@@ -2,29 +2,32 @@
 #include "IG2Object.h"
 #include "SinbadExample.h"
 
-void 
-AnimationScene::loadScene() {
+AnimationScene::AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, SceneNode* ro)
+	: Scene(SM, cont, ro)
+	, animTimer()
+	, swords(false)
+{
 	context->getCamera()->setPosition(0, 0, 20);
-	context->getCamera()->setOrientation(Quaternion(270,0,0,1));
+	context->getCamera()->setOrientation(Quaternion(270, 0, 0, 1));
 	mSM->setAmbientLight(ColourValue(1, 1, 1));
 
-	SinbadNode = mSM->getRootSceneNode()->createChildSceneNode("sinbad");
-	OgreHeadNode = mSM->getRootSceneNode()->createChildSceneNode("ogrehead");
+	SinbadNode = root->createChildSceneNode("sinbadAnim");
+	OgreHeadNode = root->createChildSceneNode("ogrehead");
 
 	Sinbad = new IG2Object(Vector3(0, 0, 0), SinbadNode, mSM, "Sinbad.mesh");
 	OgreHead = new IG2Object(Vector3(-20, 0, 0), OgreHeadNode, mSM, "ogrehead.mesh");
 	RsinbadSword = mSM->createEntity("Sword.mesh");
 	LsinbadSword = mSM->createEntity("Sword.mesh");
-	
+
 	Sinbad->getEntity()->getAnimationState("Dance")->setLoop(true);
 
 	Ogre::MeshManager::getSingleton().createPlane("floor", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::Plane(Vector3::UNIT_Y, Vector3(0, 0, 0)), 1000, 1000, 100, 80, true, 1, 100, 100, Vector3::UNIT_Z);
-	Ogre::Entity* plane = mSM->createEntity("floor");
+	plane = mSM->createEntity("floor");
 	plane->setMaterialName("AnimFloorMat");
-	SceneNode* floor = mSM->getRootSceneNode()->createChildSceneNode();
+	SceneNode* floor = root->createChildSceneNode();
 	floor->attachObject(plane);
 	floor->setPosition(Vector3(0, -10, 0));
-	
+
 	AnimationStateSet* aux = Sinbad->getEntity()->getAllAnimationStates();
 	auto it = aux->getAnimationStateIterator().begin();
 	while (it != aux->getAnimationStateIterator().end()) {
@@ -42,17 +45,24 @@ AnimationScene::loadScene() {
 	animTimer.reset();
 	initSinbadAnim();
 	initOgreHeadAnim();
+}
+
+void 
+AnimationScene::loadScene() {
+	mSM->getSceneNode("nCam")->setPosition(Vector3(0, 100, 500));
+	mSM->getSceneNode("nCam")->lookAt(Vector3(0, 1, -0.2), Ogre::Node::TS_LOCAL);
 
 }
 
 void 
 AnimationScene::unloadScene() {
-	delete Sinbad; Sinbad = nullptr;
-	delete OgreHead; OgreHead = nullptr;
+
 }
 
 void 
 AnimationScene::frameRendered(const Ogre::FrameEvent& evt) {
+
+	if (context->getCurrentScene() != 0) return;
 
 	if (animTimer.getMilliseconds() <= 4000) {
 		Sinbad->getEntity()->getAnimationState("RunBase")->setEnabled(false);

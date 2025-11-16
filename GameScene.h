@@ -16,10 +16,11 @@ class GameScene : public Scene
 	Laberinth* mLaberinth = nullptr;
 
 public:
-	GameScene(Ogre::SceneManager* SM, SinbadExample* cont, OgreBites::TrayManager* TM)
-		: Scene(SM, cont)
-		, mTrayMgr(TM)
-	{ }
+	GameScene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNode* ro, OgreBites::TrayManager* TM);
+    ~GameScene() {
+        delete mLaberinth; mLaberinth = nullptr;
+        delete mHero; mHero = nullptr;
+    }
 
 	void loadScene() override;
 	void unloadScene() override;

@@ -3,6 +3,7 @@
 class IG2Object;
 
 using namespace Ogre;
+using namespace std;
 
 class AnimationScene : public Scene
 {
@@ -12,6 +13,7 @@ class AnimationScene : public Scene
 	SceneNode* OgreHeadNode = nullptr;
 	AnimationState* SinbadAnimState = nullptr;
 	AnimationState* OgreHeadAnimState = nullptr;
+	Ogre::Entity* plane = nullptr;
 	Timer animTimer;
 
 	bool swords;
@@ -19,11 +21,13 @@ class AnimationScene : public Scene
 	Entity* LsinbadSword = nullptr;
 
 public:
-	AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont)
-		: Scene(SM, cont)
-		, animTimer()
-		, swords(false)
-	{ }
+	AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, SceneNode* ro);
+
+	~AnimationScene() {
+		delete Sinbad; Sinbad = nullptr;
+		delete OgreHead; OgreHead = nullptr;
+		delete plane; plane = nullptr;
+	}
 
 	void loadScene() override;
 	void unloadScene() override;
