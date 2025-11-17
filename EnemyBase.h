@@ -17,6 +17,7 @@ public:
 	}
 
 	virtual ~EnemyBase(){}
+	void GetDamage() override {resetPos();};
 
 	void ChooseDirection(const Ogre::FrameEvent& evt);
 	virtual void frameRendered(const Ogre::FrameEvent& evt) override;

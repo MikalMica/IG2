@@ -13,7 +13,6 @@ AliveEntity::Walk(const Ogre::FrameEvent& evt) {
 	Vector3 current_direction = Vector3(direction.x, 0, direction.y);
 
 	Vector3 desired_new_pos = mNode->getPosition() + desired_direction * (laberinth->getWallSize());
-	bool can_move_to_desired = laberinth->isPositionWalkable(desired_new_pos.x, desired_new_pos.z);
 	if (can_move_to_desired) direction = direction_buffer;
 
 

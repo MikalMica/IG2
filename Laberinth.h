@@ -11,6 +11,7 @@ class NullNode;
 
 class Laberinth : public IG2Object
 {
+private:
 	Ogre::SceneNode* mLightNode = nullptr;
 
 	Hero* hero;
@@ -22,11 +23,17 @@ class Laberinth : public IG2Object
 	OgreBites::TextBox* info;
 	std::string floorMat;
 	std::string wallMat;
+
+	stsd::vector<AliveEntity*> get_entities_in_cell(Vector2 cell);
+	Vector2 cardinal_directions[4] = { Vector2(0,1), Vector2(1,0), Vector2(0,-1), Vector2(-1,0) };
+
+	bool isPositionValid(Vector2 pos);
 public:
 	Laberinth(Vector3 initPos, SceneNode* node, SceneManager* sceneMng, Hero* h, OgreBites::TextBox* text, std::string Fmat = "FloorMat", std::string Wmat = "WallMat")
 		: IG2Object(initPos, node, sceneMng), hero(h), wallSize(0), floorMat(Fmat), wallMat(Wmat), info(text)
 	{
 	};
+
 	~Laberinth() 
 	{  
 
@@ -45,6 +52,8 @@ public:
 			null = nullptr;
 		}
 	}
+
+	void ExplodeBomb(Vector2 pos, int explosion_range, float explosion_duration);
 
 	void GenerateLaberinth(std::string in);
 	bool isPositionWalkable(float fil, float col);
