@@ -187,7 +187,6 @@ void Laberinth::ExplodeBomb(Vector2 pos, int explosion_range, float explosion_du
 				std::vector<AliveEntity*> entities = get_entities_in_cell(cell_to_check);
 				for(auto entity : entities) entity->GetDamage();
 			}
-			else break;
 		}
 	}
 }
