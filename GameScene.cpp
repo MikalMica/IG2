@@ -3,7 +3,6 @@
 #include "Laberinth.h"
 #include "ComplexEnemy.h"
 #include "SinbadExample.h"
-#include "BombPooler.h"
 
 GameScene::GameScene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNode* ro, OgreBites::TrayManager* TM)
     : Scene(SM, cont, ro)
@@ -23,8 +22,6 @@ GameScene::GameScene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNod
     mLaberinth->GenerateLaberinth("stage1");
     mStageLabel->setCaption("stage1");
     context->addInputListener(mHero);
-
-    mBombPooler = new BombPoler(mSM, mLaberinth);
 
     auto enemies = mLaberinth->getEnemies();
 

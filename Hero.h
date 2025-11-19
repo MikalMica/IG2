@@ -12,10 +12,10 @@ public:
 	}
 	inline int getLives() { return lives; }
 	inline int getPoints() { return points; }
+	inline void removeLife() { lives--; }
 	virtual void frameRendered(const Ogre::FrameEvent& evt) override;
-	virtual void GetDamage() override {lives--;}
 protected:
-	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt) override;
-	void placeBomb();
+	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt) override; // añadirlo a input listener
+
 };
 
