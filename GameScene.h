@@ -10,6 +10,8 @@ class GameScene : public Scene
 	OgreBites::Label* mStageLabel = nullptr;
 	OgreBites::TextBox* mInfoText = nullptr;
 
+	Ogre::Plane sky;
+
 	Hero* mHero = nullptr;
 	Laberinth* mLaberinth = nullptr;
 

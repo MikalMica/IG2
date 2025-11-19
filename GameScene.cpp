@@ -9,10 +9,8 @@ GameScene::GameScene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNod
     , mStageLabel(lab)
     , mInfoText(text)
 {
-    Ogre::Plane plane;
-    plane.d = 1000;
-    plane.normal = Ogre::Vector3::NEGATIVE_UNIT_Y;
-    mSM->setSkyPlane(true, plane, "SkyMat", 1500, 50, true, 1.5, 50, 50);
+    sky.d = 70;
+    sky.normal = Ogre::Vector3::UNIT_Y;
 
     auto m_node = root->createChildSceneNode("laberinth");
     auto h_node = root->createChildSceneNode("hero");
@@ -33,8 +31,6 @@ GameScene::GameScene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNod
 void 
 GameScene::loadScene() {
 
-    //mSM->setSkyPlaneEnabled(false);
-
     mStageLabel->setCaption("stage1");
 
     mInfoText->appendText("lives = 3\n");
@@ -51,11 +47,13 @@ GameScene::loadScene() {
     mSM->setAmbientLight(ColourValue(0.25, 0.25, 0.25));
     mLaberinth->resetGame();
     mHero->setLives(3);
+
+    mSM->setSkyPlane(true, sky, "SkyMat", 2, 1, true, 0, 1, 1);
 }
 
 void 
 GameScene::unloadScene() {
-    //mSM->setSkyPlaneEnabled(false);
+    mSM->setSkyPlane(false, sky, "SkyMat");
     
 }
 

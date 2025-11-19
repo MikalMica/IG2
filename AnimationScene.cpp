@@ -112,7 +112,7 @@ AnimationScene::addKeyFrame(Ogre::NodeAnimationTrack* track, Vector3 pos, Vector
 void 
 AnimationScene::initSinbadAnim() {
 	Animation* anim = mSM->createAnimation("InitialAnimation", 20.0);
-	anim->setInterpolationMode(Ogre::Animation::IM_SPLINE);
+	//anim->setInterpolationMode(Ogre::Animation::IM_SPLINE);
 	NodeAnimationTrack* track = anim->createNodeTrack(0);
 	track->setAssociatedNode(SinbadNode);
 
@@ -152,7 +152,7 @@ AnimationScene::initSinbadAnim() {
 void
 AnimationScene::initOgreHeadAnim() {
 	Animation* anim = mSM->createAnimation("OgreInitialAnimation", 20.0);
-	anim->setInterpolationMode(Ogre::Animation::IM_SPLINE);
+	//anim->setInterpolationMode(Ogre::Animation::IM_SPLINE);
 	NodeAnimationTrack* track = anim->createNodeTrack(0);
 	track->setAssociatedNode(OgreHeadNode);
 	double baseScale = 0.15;

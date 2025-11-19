@@ -1,16 +1,17 @@
 material SkyMat {
 	technique{
 		pass {
-			diffuse 0.5 0.5 0.5
-			ambient 0.8 0.8 0.8
-			specular 0.8 0.8 0.8 68
+			
+			lighting off
+			
 			texture_unit {
 				texture spacesky.jpg
+				rotate_anim 0.01
 				colour_op modulate
 			}
 			texture_unit {
 				texture lightMap.jpg
-				colour_op add
+				colour_op modulate
 			}
 		}
 	}
