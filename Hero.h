@@ -11,6 +11,7 @@ public:
 	{
 	}
 	inline int getLives() { return lives; }
+	inline void setLives(int nLives) { lives = nLives; }
 	inline int getPoints() { return points; }
 	inline void removeLife() { lives--; }
 	virtual void frameRendered(const Ogre::FrameEvent& evt) override;

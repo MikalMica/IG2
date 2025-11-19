@@ -2,14 +2,13 @@
 #include "IG2Object.h"
 #include "SinbadExample.h"
 
-AnimationScene::AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, SceneNode* ro)
+AnimationScene::AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, SceneNode* ro, OgreBites::Label* lab, OgreBites::TextBox* text)
 	: Scene(SM, cont, ro)
 	, animTimer()
 	, swords(false)
+	, label(lab)
+	, textBox(text)
 {
-	context->getCamera()->setPosition(0, 0, 20);
-	context->getCamera()->setOrientation(Quaternion(270, 0, 0, 1));
-	mSM->setAmbientLight(ColourValue(1, 1, 1));
 
 	SinbadNode = root->createChildSceneNode("sinbadAnim");
 	OgreHeadNode = root->createChildSceneNode("ogrehead");
@@ -49,9 +48,16 @@ AnimationScene::AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, Scen
 
 void 
 AnimationScene::loadScene() {
-	mSM->getSceneNode("nCam")->setPosition(Vector3(0, 100, 500));
-	mSM->getSceneNode("nCam")->lookAt(Vector3(0, 1, -0.2), Ogre::Node::TS_LOCAL);
+	textBox->clearText();
+	label->setCaption("Press S to start");
 
+	context->getCamera()->setPosition(0, 0, 20);
+	context->getCamera()->setOrientation(Quaternion(270, 0, 0, 1));
+
+	mSM->getSceneNode("nCam")->setPosition(Vector3(0, 0, 50));
+	mSM->getSceneNode("nCam")->lookAt(Vector3(0, 0, -1), Ogre::Node::TS_LOCAL);
+
+	mSM->setAmbientLight(ColourValue(1, 1, 1));
 }
 
 void 
@@ -61,8 +67,6 @@ AnimationScene::unloadScene() {
 
 void 
 AnimationScene::frameRendered(const Ogre::FrameEvent& evt) {
-
-	if (context->getCurrentScene() != 0) return;
 
 	if (animTimer.getMilliseconds() <= 4000) {
 		Sinbad->getEntity()->getAnimationState("RunBase")->setEnabled(false);

@@ -94,8 +94,11 @@ void SinbadExample::setupScene(void) {
     //------------------------------------------------------------------------
     // Creating Scene
 
-    scenes.push_back(new AnimationScene(mSM, this, mSM->getRootSceneNode()->createChildSceneNode("AnimRoot")));
-    scenes.push_back(new GameScene(mSM, this, mSM->getRootSceneNode()->createChildSceneNode("GameRoot"), mTrayMgr));
+    OgreBites::Label* lab = mTrayMgr->createLabel(OgreBites::TL_BOTTOMRIGHT, "GameInfo", "Stage: 1", 400.0);
+    OgreBites::TextBox* text = mTrayMgr->createTextBox(OgreBites::TL_BOTTOMRIGHT, "Info", "Game Info here!", Ogre::Real(400), Ogre::Real(200));
+
+    scenes.push_back(new AnimationScene(mSM, this, mSM->getRootSceneNode()->createChildSceneNode("AnimRoot"), lab, text));
+    scenes.push_back(new GameScene(mSM, this, mSM->getRootSceneNode()->createChildSceneNode("GameRoot"), lab, text));
 
     for (auto scene : scenes) {
         addInputListener(scene);

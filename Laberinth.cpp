@@ -25,7 +25,6 @@ Laberinth::GenerateLaberinth(std::string in)
 
 	stage >> fils >> cols >> wallMat >> floorMat >> lightType;
 
-	mSM->setAmbientLight(ColourValue(0.25, 0.25, 0.25));
 	Light* luz = mSM->createLight("Luz");
 	luz->setDiffuseColour(1, 1, 1);
 	

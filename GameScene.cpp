@@ -4,15 +4,11 @@
 #include "ComplexEnemy.h"
 #include "SinbadExample.h"
 
-GameScene::GameScene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNode* ro, OgreBites::TrayManager* TM)
+GameScene::GameScene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNode* ro, OgreBites::Label* lab, OgreBites::TextBox* text)
     : Scene(SM, cont, ro)
-    , mTrayMgr(TM)
+    , mStageLabel(lab)
+    , mInfoText(text)
 {
-    mStageLabel = mTrayMgr->createLabel(OgreBites::TL_BOTTOMRIGHT, "GameInfo", "Stage: 1", 400.0);
-    mInfoText = mTrayMgr->createTextBox(OgreBites::TL_BOTTOMRIGHT, "Info", "Game Info here!", Ogre::Real(400), Ogre::Real(200));
-
-    mInfoText->appendText("lives = 3\n");
-    mInfoText->appendText("points = 0");
 
     auto m_node = root->createChildSceneNode("laberinth");
     auto h_node = root->createChildSceneNode("hero");
@@ -33,17 +29,35 @@ GameScene::GameScene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNod
 void 
 GameScene::loadScene() {
 
+    mStageLabel->setCaption("stage1");
+
+    mInfoText->appendText("lives = 3\n");
+    mInfoText->appendText("points = 0");
+
     auto camPos = mLaberinth->getLaberinthSize();
     camPos *= mLaberinth->getWallSize();
     camPos /= 2;
 
     mSM->getSceneNode("nCam")->setPosition(Vector3(camPos.x, 3000, camPos.y));
     mSM->getSceneNode("nCam")->lookAt(Vector3(0, -100, 0), Ogre::Node::TS_LOCAL);
-    mSM->getSceneNode("nCam")->yaw(Ogre::Radian(M_PI / 2), Ogre::Node::TS_WORLD);
+    mSM->getSceneNode("nCam")->yaw(Ogre::Radian(M_PI), Ogre::Node::TS_WORLD);
+
+    mSM->setAmbientLight(ColourValue(0.25, 0.25, 0.25));
+    mLaberinth->resetGame();
+    mHero->setLives(3);
 }
 
 void 
 GameScene::unloadScene() {
 
     
+}
+
+void
+GameScene::frameRendered(const Ogre::FrameEvent& evt) {
+
+    if (mHero->getLives() <= 0) {
+        context->changeScene(0);
+    }
+
 }

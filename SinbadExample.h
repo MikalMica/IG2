@@ -27,9 +27,9 @@ public:
     explicit SinbadExample() : OgreBites::ApplicationContext("SinbadExample") {};
     virtual ~SinbadExample() {};
     inline int getCurrentScene() { return currScene; }
+    virtual void changeScene(int nScene);
 
     Ogre::SceneNode* getCamera() {
-        std::cout << "GUILLERMO\n";
         return mCamNode;
     };
 
@@ -38,7 +38,6 @@ protected:
     virtual void setup();
     virtual void shutdown();
     virtual void setupScene();
-    virtual void changeScene(int nScene);
 
     Ogre::SceneNode* mSinbadNode = nullptr;
 

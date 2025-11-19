@@ -21,11 +21,6 @@ Hero::frameRendered(const Ogre::FrameEvent& evt) {
 		removeLife();
 		resetPos();
 		direction = direction_buffer = { 0, 0 };
-		if (lives <= 0) {
-			lives = 3;
-			points = 0;
-			laberinth->resetGame();
-		}
 		laberinth->updateInfoText();
 	}
 }

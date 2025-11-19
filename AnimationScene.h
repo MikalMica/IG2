@@ -7,6 +7,9 @@ using namespace std;
 
 class AnimationScene : public Scene
 {
+	OgreBites::Label* label;
+	OgreBites::TextBox* textBox;
+
 	IG2Object* Sinbad = nullptr;
 	IG2Object* OgreHead = nullptr;
 	SceneNode* SinbadNode = nullptr;
@@ -21,7 +24,7 @@ class AnimationScene : public Scene
 	Entity* LsinbadSword = nullptr;
 
 public:
-	AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, SceneNode* ro);
+	AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, SceneNode* ro, OgreBites::Label* lab, OgreBites::TextBox* text);
 
 	~AnimationScene() {
 		delete Sinbad; Sinbad = nullptr;
