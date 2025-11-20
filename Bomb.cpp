@@ -1,11 +1,14 @@
 #include "Bomb.h"
 #include "Laberinth.h"
+#include <math.h>
 
 void Bomb::frameRendered(const Ogre::FrameEvent& evt) {
     if (exploded) return;
 
     timer += evt.timeSinceLastFrame;
     mPSNode->setPosition(0,50 - 50 * timer/time_to_explode,0)
+
+    mNode->setScale(Vector3(1,1,1) * MIN_SCALE - (MAX_SCALE - MIN_SCALE) * sinf(timer))
 
     mPSNode
     if (timer >= time_to_explode) {

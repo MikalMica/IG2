@@ -1,6 +1,7 @@
 {
     "files.associations": {
         ".fantomasignore": "ignore",
-        "queue": "cpp"
+        "queue": "cpp",
+        "cmath": "cpp"
     }
 }
