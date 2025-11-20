@@ -3,6 +3,7 @@
 #include "NullNode.h"
 #include "Hero.h"
 #include "ComplexEnemy.h"
+#include "ParticleInstance.h"
 #include <fstream>
 
 double 
@@ -109,6 +110,10 @@ Laberinth::GenerateLaberinth(std::string in)
 				map[i][c] = true;
 			}
 		}
+	}
+
+	for(int i = 0; i < 40) {
+		explosion_particles_pool.push(new ParticleInstance(Vecto3(0,0,0), mNode, 3.0f));
 	}
 }
 

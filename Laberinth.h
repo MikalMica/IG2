@@ -2,12 +2,14 @@
 #include "IG2Object.h"
 #include <OgreTrays.h>
 #include "AliveEntity.h"
+#include <queue>
 
 //<3
 class Hero;
 class EnemyBase;
 class Wall;
 class NullNode;
+class ParticleInstance;
 
 class Laberinth : public IG2Object
 {
@@ -24,10 +26,13 @@ private:
 	std::string floorMat;
 	std::string wallMat;
 
+	std::queue<ParticleInstance*> explosion_particles_pool;
+
 	stsd::vector<AliveEntity*> get_entities_in_cell(Vector2 cell);
 	Vector2 cardinal_directions[4] = { Vector2(0,1), Vector2(1,0), Vector2(0,-1), Vector2(-1,0) };
 
 	bool isPositionValid(Vector2 pos);
+	std::vector<AliveEntity*> get_entities_in_cell(Vector2 cell);
 public:
 	Laberinth(Vector3 initPos, SceneNode* node, SceneManager* sceneMng, Hero* h, OgreBites::TextBox* text, std::string Fmat = "FloorMat", std::string Wmat = "WallMat")
 		: IG2Object(initPos, node, sceneMng), hero(h), wallSize(0), floorMat(Fmat), wallMat(Wmat), info(text)
