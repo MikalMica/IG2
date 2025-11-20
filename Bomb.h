@@ -2,14 +2,13 @@
 #include "IG2Object.h"
 class Laberinth;
 class SceneNode;
-class ParticleSystem;
 
 class Bomb : public IG2Object
 {
 private:
     constexpr float MIN_SCALE = 0.8;
     constexpr float MAX_SCALE = 1.2;
-    
+
     float time_to_explode;
     float timer;
     int explosion_range;
@@ -30,7 +29,7 @@ public:
         wickNode->attachObject(mSM->createEntity("cilinder.mesh"));
 
         mPSNode = mNode->createChildSceneNode();
-        pSys = mSM -> createParticleSystem(“psSmoke", smoke");
+        pSys = mSM -> createParticleSystem("psSmoke", "smoke");
         pSys->setEmitting(false);
         mPSNode->attachObject(pSys);
 
