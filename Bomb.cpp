@@ -5,6 +5,9 @@ void Bomb::frameRendered(const Ogre::FrameEvent& evt) {
     if (exploded) return;
 
     timer += evt.timeSinceLastFrame;
+    mPSNode->setPosition(0,50 - 50 * timer/time_to_explode,0)
+
+    mPSNode
     if (timer >= time_to_explode) {
         laberinth->ExplodeBomb(explosion_range, explosion_duration);
         mNode->setVisible(false);
@@ -18,4 +21,5 @@ void Bomb::ActivateBomb() {
     exploded = false;
     mNode->setVisible(true);
     pSys->setEmitting(true);
+    mPSNode->setPosition(0, 50, 0);
 }

@@ -30,6 +30,8 @@ public:
         pSys = mSM -> createParticleSystem(“psSmoke", smoke");
         pSys->setEmitting(false);
         mPSNode->attachObject(pSys);
+
+        mPSNode->setPosition(0, 50, 0);
     }
 
     virtual void frameRendered(const Ogre::FrameEvent& evt) override;
