@@ -10,6 +10,7 @@ class AnimationScene : public Scene
 	OgreBites::Label* label;
 	OgreBites::TextBox* textBox;
 
+	IG2Object* Sphere = nullptr;
 	IG2Object* Sinbad = nullptr;
 	IG2Object* OgreHead = nullptr;
 	SceneNode* SinbadNode = nullptr;
@@ -30,6 +31,7 @@ public:
 		delete Sinbad; Sinbad = nullptr;
 		delete OgreHead; OgreHead = nullptr;
 		delete plane; plane = nullptr;
+		delete Sphere; Sphere = nullptr;
 	}
 
 	void loadScene() override;

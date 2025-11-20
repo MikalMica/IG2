@@ -8,9 +8,43 @@ material AnimFloorMat {
 				texture terr_rock6.jpg
 				colour_op modulate
 			}
-			texture_unit {
-				texture lightMap.jpg
-				colour_op modulate
+		}
+	}
+}
+
+vertex_program wavesShaderVS glsl
+{
+	source waveShadersVS.glsl
+
+	default_params
+	{
+		param_named_auto modelViewProjMat worldviewproj_matrix
+		param_named_auto sintime sintime_0_2pi 15
+	}
+}
+fragment_program wavesShaderFS glsl
+{
+	source waveShadersFS.glsl
+
+	default_params
+	{
+		param_named textura1 int 0		
+	}
+}
+
+material WaveShader
+{
+
+	technique{
+		pass
+		{
+			vertex_program_ref wavesShaderVS{}
+			fragment_program_ref wavesShaderFS{}
+
+			lighting off
+			texture_unit
+			{
+				texture Water02.jpg 2d
 			}
 		}
 	}
