@@ -18,23 +18,22 @@ private:
 
 	Hero* hero;
 	double wallSize;
-	vector<vector<bool>> map;
-	vector<EnemyBase*> enemies;
-	vector<Wall*> walls;
-	vector<NullNode*> holes;
+	std::vector<std::vector<bool>> map;
+	std::vector<EnemyBase*> enemies;
+	std::vector<Wall*> walls;
+	std::vector<NullNode*> holes;
 	OgreBites::TextBox* info;
 	std::string floorMat;
 	std::string wallMat;
 
 	std::queue<ParticleInstance*> explosion_particles_pool;
 
-	stsd::vector<AliveEntity*> get_entities_in_cell(Vector2 cell);
+	std::vector<AliveEntity*> get_entities_in_cell(Vector2 cell);
 	Vector2 cardinal_directions[4] = { Vector2(0,1), Vector2(1,0), Vector2(0,-1), Vector2(-1,0) };
 
 	bool isPositionValid(Vector2 pos);
-	std::vector<AliveEntity*> get_entities_in_cell(Vector2 cell);
 public:
-	Laberinth(Vector3 initPos, SceneNode* node, SceneManager* sceneMng, Hero* h, OgreBites::TextBox* text, std::string Fmat = "FloorMat", std::string Wmat = "WallMat")
+	Laberinth(Vector3 initPos, Ogre::SceneNode* node, SceneManager* sceneMng, Hero* h, OgreBites::TextBox* text, std::string Fmat = "FloorMat", std::string Wmat = "WallMat")
 		: IG2Object(initPos, node, sceneMng), hero(h), wallSize(0), floorMat(Fmat), wallMat(Wmat), info(text)
 	{
 	};
@@ -63,7 +62,7 @@ public:
 	void GenerateLaberinth(std::string in);
 	bool isPositionWalkable(float fil, float col);
 	bool isPositionWalkable(Vector2 pos);
-	inline vector<EnemyBase*> getEnemies() { return enemies; }
+	inline std::vector<EnemyBase*> getEnemies() { return enemies; }
 	inline double getWallSize() { return wallSize; }
 	bool checkCollisions(AliveEntity& entity, bool isHero);
 	void resetGame();

@@ -1,5 +1,6 @@
 #pragma once
 #include "IG2Object.h"
+#include <OgreSceneNode.h>
 class Laberinth;
 class AliveEntity : public IG2Object
 {
@@ -15,7 +16,7 @@ class AliveEntity : public IG2Object
 		inline void setLaberinth(Laberinth* nLaberinth) { laberinth = nLaberinth; };
 		inline void resetPos() { setPosition(initialPosition); }
 		inline Vector2 getDirection() { return direction; }
-		void GetDamage() = 0;
+		virtual void GetDamage() = 0;
 	protected:
 		virtual void frameRendered(const Ogre::FrameEvent& evt) override;
 };
