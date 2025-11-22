@@ -22,6 +22,10 @@ material WallMat{
 				texture Dirt.jpg
 				colour_op modulate
 			}
+			texture_unit{
+				texture lightmap.jpg
+				colour_op modulate
+			}
 		}
 	}
 }

@@ -19,7 +19,7 @@ vertex_program wavesShaderVS glsl
 	default_params
 	{
 		param_named_auto modelViewProjMat worldviewproj_matrix
-		param_named_auto sintime sintime_0_2pi 15
+		param_named_auto time sintime_0_2pi 15
 	}
 }
 fragment_program wavesShaderFS glsl

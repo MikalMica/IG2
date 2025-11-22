@@ -1,0 +1,41 @@
+vertex_program sphereVS glsl
+{
+    source sphereVS.glsl
+
+    default_params
+    {
+        param_named_auto modelViewProjMat worldviewproj_matrix
+    }
+}
+
+fragment_program sphereFS glsl
+{
+	source sphereFS.glsl
+
+	default_params
+	{
+		param_named textura1 int 0
+        param_named_auto flipping render_target_flipping
+	}
+}
+
+material sphere{
+    technique{
+        pass
+        {
+            vertex_program_ref sphereVS{}
+            fragment_program_ref sphereFS{}
+
+            cull_hardware none
+            cull_software none
+
+            lighting off
+
+            texture_unit
+            {
+                texture corrosion.jpg 2d
+                tex_address_mode clamp
+            }
+        }
+    }
+}

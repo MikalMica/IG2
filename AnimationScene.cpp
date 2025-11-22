@@ -12,7 +12,7 @@ AnimationScene::AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, Scen
 
 	SinbadNode = root->createChildSceneNode("sinbadAnim");
 	OgreHeadNode = root->createChildSceneNode("ogrehead");
-
+	
 	Sinbad = new IG2Object(Vector3(0, 0, 0), SinbadNode, mSM, "Sinbad.mesh");
 	OgreHead = new IG2Object(Vector3(-20, 0, 0), OgreHeadNode, mSM, "ogrehead.mesh");
 	Sphere = new IG2Object(Vector3(0, 0, -10), root->createChildSceneNode("corrosionSphere"), mSM, "uv_sphere.mesh");

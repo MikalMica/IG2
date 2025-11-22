@@ -16,6 +16,8 @@ Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {
 void 
 Hero::frameRendered(const Ogre::FrameEvent& evt) {
 	AliveEntity::frameRendered(evt);
+	getEntity()->getAnimationState("RunBase")->addTime(evt.timeSinceLastFrame);
+	getEntity()->getAnimationState("RunTop")->addTime(evt.timeSinceLastFrame);
 
 	if (laberinth->checkCollisions(*this, true)) {
 		removeLife();
