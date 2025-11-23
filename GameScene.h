@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "BombPooler.h"
 
 class Hero;
 class Laberinth;
@@ -15,7 +16,7 @@ class GameScene : public Scene
 
 	Hero* mHero = nullptr;
 	Laberinth* mLaberinth = nullptr;
-	BombPoler* mBombPooler = nullptr;
+	BombPooler* mBombPooler = nullptr;
 
 public:
 	GameScene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNode* ro, OgreBites::TrayManager* TM);

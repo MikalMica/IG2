@@ -33,7 +33,7 @@ private:
 
 	bool isPositionValid(Vector2 pos);
 public:
-	Laberinth(Vector3 initPos, Ogre::SceneNode* node, SceneManager* sceneMng, Hero* h, OgreBites::TextBox* text, std::string Fmat = "FloorMat", std::string Wmat = "WallMat")
+	Laberinth(Vector3 initPos, Ogre::SceneNode* node, Ogre::SceneManager* sceneMng, Hero* h, OgreBites::TextBox* text, std::string Fmat = "FloorMat", std::string Wmat = "WallMat")
 		: IG2Object(initPos, node, sceneMng), hero(h), wallSize(0), floorMat(Fmat), wallMat(Wmat), info(text)
 	{
 	};
@@ -70,6 +70,7 @@ public:
 	double normalizeSize(Vector3 const& sizeBox);
 	void correctPosition(AliveEntity& entity);
 	Vector2 getLaberinthPosition(Vector2 const& pos);
+	Vector3 getRealPos(Vector2 const& pos);
 	Vector2 getLaberinthSize() { return Vector2(map[0].size(), map.size()); }
 };
 

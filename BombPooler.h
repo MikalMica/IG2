@@ -1,21 +1,19 @@
 #pragma once
 #include <queue>
-class SceneNode;
-class SceneManager;
+#include <OgreSceneNode.h>
+#include <OgreSceneManager.h>
+
 class Laberinth;
 class Bomb;
 
-class BombPoler {
+class BombPooler {
 private:
     const static constexpr int MAX_BOMBS = 5;
     std::queue<Bomb*> bombPool;
-    static BombPoler* instance;
 
 public:
-    static BombPoler* GetInstance() { return instance; };
-
-    BombPoler(SceneManager* mSM, Laberinth* laberinth);
-    ~BombPoler();
+    BombPooler(Ogre::SceneManager* mSM, Laberinth* laberinth);
+    ~BombPooler();
 
     bool GetBomb(Bomb* returned_bomb);
-}
+};

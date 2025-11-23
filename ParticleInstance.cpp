@@ -12,7 +12,7 @@ void ParticleInstance::frameRendered(const Ogre::FrameEvent& evt) {
 
     timer += evt.timeSinceLastFrame;
 
-    if (timer >= time_to_explode) {
+    if (timer >= duration) {
         mPSys->setEmitting(false);
         active = false;
     }

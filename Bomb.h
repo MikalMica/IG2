@@ -1,7 +1,9 @@
 #pragma once
 #include "IG2Object.h"
+#include <OgreParticleSystem.h>
+#include <OgreSceneNode.h>
+
 class Laberinth;
-class SceneNode;
 
 using namespace Ogre;
 
@@ -19,10 +21,10 @@ private:
     bool exploded = true;
     Ogre::SceneNode* wickNode = nullptr;
     Ogre::SceneNode* mPSNode = nullptr;
-    ParticleSystem* pSys = nullptr;
+    Ogre::ParticleSystem* pSys = nullptr;
 
 public:
-    Bomb(Vector3 pos, Ogre::SceneNode* node, SceneManager* mSM, Laberinth* lab, float time_exp = 3.0f, int exp_range = 2, float expDuration = 0.1f)
+    Bomb(Vector3 pos, Ogre::SceneNode* node, Ogre::SceneManager* mSM, Laberinth* lab, float time_exp = 3.0f, int exp_range = 2, float expDuration = 0.1f)
         : IG2Object(pos, node, mSM, "Bomb.mesh"), time_to_explode(time_exp), timer(0.0f), explosion_range(exp_range), explosion_duration(expDuration), laberinth(lab), exploded(true)
     {
         wickNode = mNode->createChildSceneNode();

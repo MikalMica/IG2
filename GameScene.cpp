@@ -24,7 +24,8 @@ GameScene::GameScene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNod
     mStageLabel->setCaption("stage1");
     context->addInputListener(mHero);
 
-    mBombPooler = new BombPoler(mSM, mLaberinth);
+    mBombPooler = new BombPooler(mSM, mLaberinth);
+    mHero->setBombPooler(mBombPooler);
 
     auto enemies = mLaberinth->getEnemies();
 

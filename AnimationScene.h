@@ -9,8 +9,8 @@ class AnimationScene : public Scene
 {
 	IG2Object* Sinbad = nullptr;
 	IG2Object* OgreHead = nullptr;
-	SceneNode* SinbadNode = nullptr;
-	SceneNode* OgreHeadNode = nullptr;
+	Ogre::SceneNode* SinbadNode = nullptr;
+	Ogre::SceneNode* OgreHeadNode = nullptr;
 	AnimationState* SinbadAnimState = nullptr;
 	AnimationState* OgreHeadAnimState = nullptr;
 	Ogre::Entity* plane = nullptr;
@@ -21,7 +21,7 @@ class AnimationScene : public Scene
 	Entity* LsinbadSword = nullptr;
 
 public:
-	AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, SceneNode* ro);
+	AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNode* ro);
 
 	~AnimationScene() {
 		delete Sinbad; Sinbad = nullptr;

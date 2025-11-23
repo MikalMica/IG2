@@ -1,6 +1,7 @@
 #include "Hero.h"
 #include "Laberinth.h"
 #include "BombPooler.h"
+#include "Bomb.h"
 
 bool
 Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {
@@ -36,7 +37,7 @@ Hero::frameRendered(const Ogre::FrameEvent& evt) {
 
 void Hero::placeBomb() {
 	Bomb* returned_bomb = nullptr;
-	if(BombPoler::GetInstance()->GetBomb(returned_bomb)) 
+	if(bomb_pooler->GetBomb(returned_bomb)) 
 	{
 		returned_bomb->setPosition(getPosition());
 		returned_bomb->ActivateBomb();

@@ -58,9 +58,9 @@ Laberinth::GenerateLaberinth(std::string in)
 		mLightNode->attachObject(luz);
 	}
 
-	map = vector<vector<bool>>(fils);
-	for (vector<bool>& col : map) {
-		col = vector<bool>(cols);
+	map = std::vector<std::vector<bool>>(fils);
+	for (std::vector<bool>& col : map) {
+		col = std::vector<bool>(cols);
 	}
 
 	Wall* baby = new Wall(Vector3(0, 0, 0), createChildSceneNode(), mSM);
@@ -112,8 +112,8 @@ Laberinth::GenerateLaberinth(std::string in)
 		}
 	}
 
-	for(int i = 0; i < 40) {
-		explosion_particles_pool.push(new ParticleInstance(Vecto3(0,0,0), mNode, 3.0f));
+	for (int i = 0; i < 40; i++) {
+		explosion_particles_pool.push(new ParticleInstance(Vector3(0,0,0), mNode, 3.0f, mSM));
 	}
 }
 
@@ -156,6 +156,15 @@ Laberinth::updateInfoText() {
 	info->setText("points: " + to_string(hero->getPoints()) + "\nlives: " + to_string(hero->getLives()));
 }
 
+Vector3
+Laberinth::getRealPos(Vector2 const& pos) {
+	int fil, col;
+	fil = pos.y * wallSize;
+	col = pos.x * wallSize;
+
+	return Vector3(col * wallSize, fil * wallSize, 0);
+}
+
 Vector2
 Laberinth::getLaberinthPosition(Vector2 const& pos) {
 	int fil, col;
@@ -189,6 +198,9 @@ void Laberinth::ExplodeBomb(Vector2 pos, int explosion_range, float explosion_du
 			Vector2 cell_to_check = bomb_cell + cardinal_directions[i] * j;
 			if (isPositionValid(cell_to_check)) 
 			{
+				auto e_particle = explosion_particles_pool.front();
+				e_particle->Start(getRealPos(cell_to_check));
+
 				std::vector<AliveEntity*> entities = get_entities_in_cell(cell_to_check);
 				for(auto entity : entities) entity->GetDamage();
 			}
@@ -201,17 +213,17 @@ std::vector<AliveEntity*> Laberinth::get_entities_in_cell(Vector2 cell) {
 	std::vector<AliveEntity*> entities_in_cell;
 
 	Vector2 hero_cell = getLaberinthPosition(Vector2(hero->getPosition().x, hero->getPosition().z));
-	if (hero_cell == cell_pos) entities_in_cell.push_back(hero);
+	if (hero_cell == cell) entities_in_cell.push_back(hero);
 
 	for (auto enemy : enemies) 
 	{
 		Vector2 enemy_cell = getLaberinthPosition(Vector2(enemy->getPosition().x, enemy->getPosition().z));
-		if (enemy_cell == cell_pos) entities_in_cell.push_back(enemy);
+		if (enemy_cell == cell) entities_in_cell.push_back(enemy);
 	}
 
 	return entities_in_cell;
 }
 
 bool Laberinth::isPositionValid(Vector2 pos) {
-	return (fil >= 0 && fil < map.size() && col >= 0 && col < map[0].size()) && map[fil][col];
+	return (pos.y >= 0 && pos.y < map.size() && pos.x >= 0 && pos.x < map[0].size()) && map[pos.y][pos.x];
 }

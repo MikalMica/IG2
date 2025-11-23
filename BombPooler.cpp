@@ -3,23 +3,17 @@
 #include "Laberinth.h"
 #include "IG2Object.h"
 
-BombPoler::BombPoler(SceneManager* mSM, Laberinth* laberinth) {
+BombPooler::BombPooler(Ogre::SceneManager* mSM, Laberinth* laberinth) {
 
-    if (instance == nullptr) 
+    for (int i = 0; i < MAX_BOMBS; ++i) 
     {
-        instance = this;
-
-        for (int i = 0; i < MAX_BOMBS; ++i) 
-        {
-            Bomb* bomb = new Bomb(Vector3(0,0,0), laberinth->createChildSceneNode(), mSM, laberinth);
-            bombPool.push(bomb);
-        }
-
-    } else delete this;
+        Bomb* bomb = new Bomb(Vector3(0,0,0), laberinth->createChildSceneNode(), mSM, laberinth);
+        bombPool.push(bomb);
+    }
 
 }
 
-BombPoler::~BombPoler() {
+BombPooler::~BombPooler() {
     while (!bombPool.empty()) {
         Bomb* bomb = bombPool.front();
         bombPool.pop();
@@ -27,7 +21,7 @@ BombPoler::~BombPoler() {
     }
 }
 
-bool BombPoler::GetBomb(Bomb* returned_bomb) {
+bool BombPooler::GetBomb(Bomb* returned_bomb) {
     returned_bomb = bombPool.front();
     if (!returned_bomb->isAvailable()) return false;
 
