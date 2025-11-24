@@ -16,7 +16,7 @@ public:
 	inline int getLives() { return lives; }
 	inline int getPoints() { return points; }
 	virtual void frameRendered(const Ogre::FrameEvent& evt) override;
-	virtual void GetDamage() override {lives--;}
+	virtual void GetDamage() override;
 	void setBombPooler(BombPooler* pooler) { bomb_pooler = pooler; };
 protected:
 	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt) override;

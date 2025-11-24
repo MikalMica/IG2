@@ -24,20 +24,25 @@ Hero::frameRendered(const Ogre::FrameEvent& evt) {
 
 	if (laberinth->checkCollisions(*this, true)) {
 		GetDamage();
-		resetPos();
-		direction = direction_buffer = { 0, 0 };
-		if (lives <= 0) {
-			lives = 3;
-			points = 0;
-			laberinth->resetGame();
-		}
-		laberinth->updateInfoText();
 	}
 }
 
+void Hero::GetDamage()
+{
+	lives--;
+	resetPos();
+	direction = direction_buffer = { 0, 0 };
+	if (lives <= 0) {
+		lives = 3;
+		points = 0;
+		laberinth->resetGame();
+	}
+	laberinth->updateInfoText();
+}
+
 void Hero::placeBomb() {
-	Bomb* returned_bomb = nullptr;
-	if(bomb_pooler->GetBomb(returned_bomb)) 
+	Bomb* returned_bomb = bomb_pooler->GetBomb();
+	if(returned_bomb != nullptr) 
 	{
 		returned_bomb->setPosition(getPosition());
 		returned_bomb->ActivateBomb();

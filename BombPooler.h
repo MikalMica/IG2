@@ -5,6 +5,7 @@
 
 class Laberinth;
 class Bomb;
+class SinbadExample;
 
 class BombPooler {
 private:
@@ -12,8 +13,8 @@ private:
     std::queue<Bomb*> bombPool;
 
 public:
-    BombPooler(Ogre::SceneManager* mSM, Laberinth* laberinth);
+    BombPooler(Ogre::SceneManager* mSM, Laberinth* laberinth, SinbadExample* cont);
     ~BombPooler();
 
-    bool GetBomb(Bomb* returned_bomb);
+    Bomb* GetBomb();
 };

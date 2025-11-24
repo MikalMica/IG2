@@ -113,7 +113,7 @@ Laberinth::GenerateLaberinth(std::string in)
 	}
 
 	for (int i = 0; i < 40; i++) {
-		explosion_particles_pool.push(new ParticleInstance(Vector3(0,0,0), mNode, 3.0f, mSM));
+		explosion_particles_pool.push(new ParticleInstance(Vector3(0,0,0), mNode, 3.0f, mSM, i, context));
 	}
 }
 
@@ -162,7 +162,7 @@ Laberinth::getRealPos(Vector2 const& pos) {
 	fil = pos.y * wallSize;
 	col = pos.x * wallSize;
 
-	return Vector3(col * wallSize, fil * wallSize, 0);
+	return Vector3(col, 0, fil);
 }
 
 Vector2
@@ -174,12 +174,21 @@ Laberinth::getLaberinthPosition(Vector2 const& pos) {
 	return Vector2(col * wallSize, fil * wallSize);
 }
 
+Vector2
+Laberinth::getLaberinthPosition(Vector3 const& pos) {
+	int fil, col;
+	fil = std::round(pos.z / wallSize);
+	col = std::round(pos.x / wallSize);
+
+	return Vector2(col, fil);
+}
+
 
 void 
 Laberinth::correctPosition(AliveEntity& entity) {
 	Vector2 eDir = entity.getDirection();
 
-	Vector2 labPos = getLaberinthPosition({ entity.getPosition().x, entity.getPosition().z });
+	Vector2 labPos = getLaberinthPosition(Vector2{ entity.getPosition().x, entity.getPosition().z });
 
 	if (eDir.x != 0) {
 		entity.setPosition(Vector3(entity.getPosition().x, 0, labPos.y));
@@ -188,10 +197,10 @@ Laberinth::correctPosition(AliveEntity& entity) {
 	
 }
 
-void Laberinth::ExplodeBomb(Vector2 pos, int explosion_range, float explosion_duration) {
+void Laberinth::ExplodeBomb(Vector3 pos, int explosion_range, float explosion_duration) {
 	Vector2 bomb_cell = getLaberinthPosition(pos);
 
-	for(int i = 0; i < 4; i++) 
+	for(int i = 0; i < 5; i++) 
 	{
 		for(int j = 1; j <= explosion_range; j++) 
 		{
@@ -199,6 +208,8 @@ void Laberinth::ExplodeBomb(Vector2 pos, int explosion_range, float explosion_du
 			if (isPositionValid(cell_to_check)) 
 			{
 				auto e_particle = explosion_particles_pool.front();
+				explosion_particles_pool.pop();
+				explosion_particles_pool.push(e_particle);
 				e_particle->Start(getRealPos(cell_to_check));
 
 				std::vector<AliveEntity*> entities = get_entities_in_cell(cell_to_check);
@@ -212,12 +223,12 @@ void Laberinth::ExplodeBomb(Vector2 pos, int explosion_range, float explosion_du
 std::vector<AliveEntity*> Laberinth::get_entities_in_cell(Vector2 cell) {
 	std::vector<AliveEntity*> entities_in_cell;
 
-	Vector2 hero_cell = getLaberinthPosition(Vector2(hero->getPosition().x, hero->getPosition().z));
+	Vector2 hero_cell = getLaberinthPosition(hero->getPosition());
 	if (hero_cell == cell) entities_in_cell.push_back(hero);
 
 	for (auto enemy : enemies) 
 	{
-		Vector2 enemy_cell = getLaberinthPosition(Vector2(enemy->getPosition().x, enemy->getPosition().z));
+		Vector2 enemy_cell = getLaberinthPosition(enemy->getPosition());
 		if (enemy_cell == cell) entities_in_cell.push_back(enemy);
 	}
 
