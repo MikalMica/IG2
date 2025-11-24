@@ -53,5 +53,7 @@ public:
 	~ComplexEnemy() { delete ghostHeadNode; ghostHeadNode = nullptr;  delete ghostRightNode; ghostRightNode = nullptr;  delete ghostLeftNode; ghostLeftNode = nullptr; }
 
 	virtual void frameRendered(const Ogre::FrameEvent& evt) override;
+
+	void GetDamage() override { resetPos(); }
 };
 

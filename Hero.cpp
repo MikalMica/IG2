@@ -12,6 +12,8 @@ Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {
 	else if (evt.keysym.sym == SDLK_LEFT) new_direction.x = -1;
 	direction_buffer = new_direction;
 
+	if (evt.keysym.sym == SDLK_SPACE) placeBomb();
+
 	return true;
 }
 

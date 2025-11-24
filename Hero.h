@@ -23,6 +23,7 @@ public:
 	virtual void GetDamage() override;
 	void setBombPooler(BombPooler* pooler) { bomb_pooler = pooler; };
 protected:
+	void placeBomb();
 	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt) override; // a�adirlo a input listener
 
 };
