@@ -1,5 +1,7 @@
 #include "Hero.h"
 #include "Laberinth.h"
+#include "BombPooler.h"
+#include "Bomb.h"
 
 bool
 Hero::keyPressed(const OgreBites::KeyboardEvent& evt) {
@@ -20,9 +22,28 @@ Hero::frameRendered(const Ogre::FrameEvent& evt) {
 	getEntity()->getAnimationState("RunTop")->addTime(evt.timeSinceLastFrame);
 
 	if (laberinth->checkCollisions(*this, true)) {
-		removeLife();
-		resetPos();
-		direction = direction_buffer = { 0, 0 };
-		laberinth->updateInfoText();
+		GetDamage();
+	}
+}
+
+void Hero::GetDamage()
+{
+	lives--;
+	resetPos();
+	direction = direction_buffer = { 0, 0 };
+	if (lives <= 0) {
+		lives = 3;
+		points = 0;
+		laberinth->resetGame();
+	}
+	laberinth->updateInfoText();
+}
+
+void Hero::placeBomb() {
+	Bomb* returned_bomb = bomb_pooler->GetBomb();
+	if(returned_bomb != nullptr) 
+	{
+		returned_bomb->setPosition(getPosition());
+		returned_bomb->ActivateBomb();
 	}
 }

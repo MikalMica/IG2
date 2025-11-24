@@ -28,7 +28,7 @@ class IG2Object : public OgreBites::InputListener {
          * @param node Scene node for this element.
          * @param sceneMng Scene manager.
          */
-        IG2Object(Vector3 initPos, SceneNode *node, SceneManager* sceneMng);
+        IG2Object(Vector3 initPos, Ogre::SceneNode *node, Ogre::SceneManager* sceneMng);
     
         /**
          * Constructor.
@@ -37,7 +37,7 @@ class IG2Object : public OgreBites::InputListener {
          * @param sceneMng Scene manager.
          * @param mesh Mesh that is applied to this element.
          */
-        IG2Object(Vector3 initPos, SceneNode *node, SceneManager* sceneMng, String mesh);
+        IG2Object(Vector3 initPos, Ogre::SceneNode *node, Ogre::SceneManager* sceneMng, String mesh);
         
         /**
          * Destructor
@@ -48,7 +48,7 @@ class IG2Object : public OgreBites::InputListener {
          * Creates a child scene node.
          * @return Creates a new SceneNode as a child of this object.
          */
-        SceneNode* createChildSceneNode ();    
+        Ogre::SceneNode* createChildSceneNode ();    
     
         /**
          * Sets an initial position for this element
@@ -147,10 +147,10 @@ class IG2Object : public OgreBites::InputListener {
     protected:
     
         // Scene node representing this element in the scene
-        SceneNode *mNode = nullptr;
+        Ogre::SceneNode *mNode = nullptr;
     
         // Scene manager
-        SceneManager* mSM = nullptr;
+        Ogre::SceneManager* mSM = nullptr;
     
         // Entity for this element
         Ogre::Entity* entity = nullptr;

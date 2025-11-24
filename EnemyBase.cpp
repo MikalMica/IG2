@@ -23,7 +23,7 @@ EnemyBase::frameRendered(const Ogre::FrameEvent& evt) {
 
 void
 EnemyBase::ChooseDirection(const Ogre::FrameEvent& evt) {
-	vector<Vector2> dirs = WalkableDirs(evt);
+	std::vector<Vector2> dirs = WalkableDirs(evt);
 	int dirIndex = std::rand() % dirs.size();
 	
 
@@ -42,9 +42,9 @@ EnemyBase::ChooseDirection(const Ogre::FrameEvent& evt) {
 	if (!laberinth->isPositionWalkable(new_pos)) directionSelected = false;
 }
 
-vector<Vector2>
+std::vector<Vector2>
 EnemyBase::WalkableDirs(const Ogre::FrameEvent& evt) {
-	vector<Vector2> allowedDirs;
+	std::vector<Vector2> allowedDirs;
 	Vector2 mPos = { getPosition().x, getPosition().z };
 
 	int index = getDirectionIndex(direction);
@@ -53,7 +53,7 @@ EnemyBase::WalkableDirs(const Ogre::FrameEvent& evt) {
 	if (right >= posible_directions.size()) right = 0;
 	if (left < 0) left = posible_directions.size() - 1;
 
-	vector<int> indexes = { right, left, index};
+	std::vector<int> indexes = { right, left, index};
 
 	for (int i = 0; i < indexes.size(); ++i) {
 		float margin = i == 2 ? laberinth->getWallSize()/2 : laberinth->getWallSize();

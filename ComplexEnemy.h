@@ -5,14 +5,14 @@
 
 class ComplexEnemy : public EnemyBase
 {
-	SceneNode* ghostRightNode = nullptr;
-	SceneNode* ghostLeftNode = nullptr;
-	SceneNode* ghostHeadNode = nullptr;
+	Ogre::SceneNode* ghostRightNode = nullptr;
+	Ogre::SceneNode* ghostLeftNode = nullptr;
+	Ogre::SceneNode* ghostHeadNode = nullptr;
 	Timer timer;
 	int time; // In miliseconds
 	int degreeSign;
 public:
-	ComplexEnemy(Vector3 pos, SceneNode* node, SceneManager* mSM, float speed, int t = 5000) 
+	ComplexEnemy(Vector3 pos, Ogre::SceneNode* node, Ogre::SceneManager* mSM, float speed, int t = 5000)
 		: EnemyBase(pos, node, mSM, speed, "athene.mesh"), timer(), time(t), degreeSign(1) {
 		
 		double max = std::max(calculateBoxSize().x, std::max(calculateBoxSize().y, calculateBoxSize().z));

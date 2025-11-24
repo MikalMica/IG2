@@ -3,6 +3,7 @@
 #include "NullNode.h"
 #include "Hero.h"
 #include "ComplexEnemy.h"
+#include "ParticleInstance.h"
 #include <fstream>
 
 double 
@@ -56,9 +57,9 @@ Laberinth::GenerateLaberinth(std::string in)
 		mLightNode->attachObject(luz);
 	}
 
-	map = vector<vector<bool>>(fils);
-	for (vector<bool>& col : map) {
-		col = vector<bool>(cols);
+	map = std::vector<std::vector<bool>>(fils);
+	for (std::vector<bool>& col : map) {
+		col = std::vector<bool>(cols);
 	}
 
 	Wall* baby = new Wall(Vector3(0, 0, 0), createChildSceneNode(), mSM);
@@ -109,6 +110,10 @@ Laberinth::GenerateLaberinth(std::string in)
 			}
 		}
 	}
+
+	for (int i = 0; i < 40; i++) {
+		explosion_particles_pool.push(new ParticleInstance(Vector3(0,0,0), mNode, 3.0f, mSM, i, context));
+	}
 }
 
 bool
@@ -150,6 +155,15 @@ Laberinth::updateInfoText() {
 	info->setText("points: " + to_string(hero->getPoints()) + "\nlives: " + to_string(hero->getLives()));
 }
 
+Vector3
+Laberinth::getRealPos(Vector2 const& pos) {
+	int fil, col;
+	fil = pos.y * wallSize;
+	col = pos.x * wallSize;
+
+	return Vector3(col, 0, fil);
+}
+
 Vector2
 Laberinth::getLaberinthPosition(Vector2 const& pos) {
 	int fil, col;
@@ -159,12 +173,21 @@ Laberinth::getLaberinthPosition(Vector2 const& pos) {
 	return Vector2(col * wallSize, fil * wallSize);
 }
 
+Vector2
+Laberinth::getLaberinthPosition(Vector3 const& pos) {
+	int fil, col;
+	fil = std::round(pos.z / wallSize);
+	col = std::round(pos.x / wallSize);
+
+	return Vector2(col, fil);
+}
+
 
 void 
 Laberinth::correctPosition(AliveEntity& entity) {
 	Vector2 eDir = entity.getDirection();
 
-	Vector2 labPos = getLaberinthPosition({ entity.getPosition().x, entity.getPosition().z });
+	Vector2 labPos = getLaberinthPosition(Vector2{ entity.getPosition().x, entity.getPosition().z });
 
 	if (eDir.x != 0) {
 		entity.setPosition(Vector3(entity.getPosition().x, 0, labPos.y));
@@ -173,3 +196,44 @@ Laberinth::correctPosition(AliveEntity& entity) {
 	
 }
 
+void Laberinth::ExplodeBomb(Vector3 pos, int explosion_range, float explosion_duration) {
+	Vector2 bomb_cell = getLaberinthPosition(pos);
+
+	for(int i = 0; i < 5; i++) 
+	{
+		for(int j = 1; j <= explosion_range; j++) 
+		{
+			Vector2 cell_to_check = bomb_cell + cardinal_directions[i] * j;
+			if (isPositionValid(cell_to_check)) 
+			{
+				auto e_particle = explosion_particles_pool.front();
+				explosion_particles_pool.pop();
+				explosion_particles_pool.push(e_particle);
+				e_particle->Start(getRealPos(cell_to_check));
+
+				std::vector<AliveEntity*> entities = get_entities_in_cell(cell_to_check);
+				for(auto entity : entities) entity->GetDamage();
+			}
+			else break;
+		}
+	}
+}
+
+std::vector<AliveEntity*> Laberinth::get_entities_in_cell(Vector2 cell) {
+	std::vector<AliveEntity*> entities_in_cell;
+
+	Vector2 hero_cell = getLaberinthPosition(hero->getPosition());
+	if (hero_cell == cell) entities_in_cell.push_back(hero);
+
+	for (auto enemy : enemies) 
+	{
+		Vector2 enemy_cell = getLaberinthPosition(enemy->getPosition());
+		if (enemy_cell == cell) entities_in_cell.push_back(enemy);
+	}
+
+	return entities_in_cell;
+}
+
+bool Laberinth::isPositionValid(Vector2 pos) {
+	return (pos.y >= 0 && pos.y < map.size() && pos.x >= 0 && pos.x < map[0].size()) && map[pos.y][pos.x];
+}

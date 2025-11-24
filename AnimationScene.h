@@ -13,8 +13,8 @@ class AnimationScene : public Scene
 	IG2Object* Sphere = nullptr;
 	IG2Object* Sinbad = nullptr;
 	IG2Object* OgreHead = nullptr;
-	SceneNode* SinbadNode = nullptr;
-	SceneNode* OgreHeadNode = nullptr;
+	Ogre::SceneNode* SinbadNode = nullptr;
+	Ogre::SceneNode* OgreHeadNode = nullptr;
 	AnimationState* SinbadAnimState = nullptr;
 	AnimationState* OgreHeadAnimState = nullptr;
 	Ogre::Entity* plane = nullptr;
