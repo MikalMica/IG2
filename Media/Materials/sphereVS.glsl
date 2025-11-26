@@ -1,12 +1,25 @@
 #version 330 core
+in vec3 normal;
 in vec4 vertex;
 in vec2 uv0;
 uniform mat4 modelViewProjMat;
+uniform vec3 lightDirection;
+uniform vec3 lightDiffuse;
+uniform vec3 lightAmbient;
+uniform vec3 materialDiffuse;
 out vec2 vUv0;
-out vec4 vVertex;
+out vec3 vNormal;
+out vec3 vLightDirection;
+out vec3 vLightDiffuse;
+out vec3 vLightAmbient;
+out vec3 vMaterialDiffuse;
 
 void main(){
     vUv0 = uv0;
-    vVertex = vertex;
+    vNormal = normal;
+    vLightDirection = lightDirection;
+    vLightDiffuse = lightDiffuse;
+    vLightAmbient = lightAmbient;
+    vMaterialDiffuse = materialDiffuse;
     gl_Position = modelViewProjMat * vertex;
 }

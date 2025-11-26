@@ -2,7 +2,11 @@
 uniform sampler2D textura1;
 uniform float flipping;
 in vec2 vUv0;
-in vec4 vVertex;
+in vec3 vNormal;
+in vec3 vLightDirection;
+in vec3 vLightAmbient;
+in vec3 vLightDiffuse;
+in vec3 vMaterialDiffuse;
 out vec4 fFragColor;
 
 void main(){ 
@@ -17,6 +21,16 @@ void main(){
         discard;
     }
 
-    if(front) fFragColor = vec4(color,1.0);
-    else fFragColor = vec4(vVertex.x/100, vVertex.y/100, -vVertex.z/100, 1.0);
+    vec3 ambient = vLightAmbient*vMaterialDiffuse;
+    vec3 diffuse;
+    
+    if(!front){ 
+        color = -vNormal;
+        diffuse = max(0, dot(-vNormal, -vLightDirection))*vLightDiffuse*vMaterialDiffuse;
+    }
+    else diffuse = max(0, dot(vNormal, -vLightDirection))*vLightDiffuse*vMaterialDiffuse;
+
+    color = color * (ambient + diffuse);
+
+    fFragColor = vec4(color,1.0);
 }
