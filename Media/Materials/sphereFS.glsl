@@ -1,13 +1,31 @@
-#version 330 core 
-uniform sampler2D textura1;
-uniform float flipping;
-in vec2 vUv0;
+#version 330 core
+
+in vec4 vVertex;
 in vec3 vNormal;
-in vec3 vLightDirection;
-in vec3 vLightAmbient;
-in vec3 vLightDiffuse;
-in vec3 vMaterialDiffuse;
+in vec2 vUv0; // Coordenadas de textura
+
+uniform sampler2D textura1;
+uniform float threshold;
+
+uniform mat4 modelViewMat; // View*Model matrix (espacio de la vista)
+uniform mat3 normalMat; // upper-left 3x3 transpose(inverse(modelView))
+uniform vec3 lightAmbient; // Intensidad de la luz ambiente
+uniform vec3 lightDiffuse; // Intensidad de la luz difusa
+uniform vec4 lightPosition; // Datos de la fuente de luz en view space
+                            // lightPosition.w == 0 -> directional light
+                            // lightPosition.w == 1 -> positional light
+uniform vec3 lightDirection;
+uniform vec3 materialDiffuse; // Datos del material ¡Front=Back!
+uniform float flipping;
+
 out vec4 fFragColor;
+
+float diff(vec3 cVertex, vec3 cNormal){
+    vec3 lightDir = lightPosition.xyz;
+    if (lightPosition.w == 1)
+    lightDir = lightPosition.xyz - cVertex;
+    return max(dot(cNormal, normalize(lightDir)), 0.0);
+} 
 
 void main(){ 
 
@@ -17,20 +35,20 @@ void main(){
     
     vec3 color = vec3(texture(textura1, vUv0));
 
-    if(color.r > 0.6){
+    if(color.r > 0.5){
         discard;
     }
-
-    vec3 ambient = vLightAmbient*vMaterialDiffuse;
-    vec3 diffuse;
     
     if(!front){ 
-        color = -vNormal;
-        diffuse = max(0, dot(-vNormal, -vLightDirection))*vLightDiffuse*vMaterialDiffuse;
+        color = normalize(vVertex.rgb * lightDirection);
     }
-    else diffuse = max(0, dot(vNormal, -vLightDirection))*vLightDiffuse*vMaterialDiffuse;
-
-    color = color * (ambient + diffuse);
+    else{
+        vec3 viewVertex = vec3(modelViewMat * vVertex);
+        vec3 viewNormal = normalize(normalMat * vNormal);
+        vec3 ambient = lightAmbient*materialDiffuse;
+        vec3 diffuse = diff(viewVertex, viewNormal)*lightDiffuse*materialDiffuse;
+        color = color * (ambient + diffuse);
+    } 
 
     fFragColor = vec4(color,1.0);
 }

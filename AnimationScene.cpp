@@ -10,6 +10,14 @@ AnimationScene::AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, Scen
 	, textBox(text)
 {
 
+	Light* luz = mSM->createLight("LuzAnim");
+	luz->setDiffuseColour(0.75, 0.75, 0.75);
+	luz->setType(Ogre::Light::LT_DIRECTIONAL);
+
+	auto mLightNode = root->createChildSceneNode("nLuzAnim");
+	mLightNode->attachObject(luz);
+	mLightNode->setDirection(Ogre::Vector3(-1, -1, -1));
+
 	SinbadNode = root->createChildSceneNode("sinbadAnim");
 	OgreHeadNode = root->createChildSceneNode("ogrehead");
 	
@@ -51,6 +59,9 @@ AnimationScene::AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, Scen
 
 void 
 AnimationScene::loadScene() {
+
+	mSM->setAmbientLight(ColourValue(0, 0, 0));
+
 	textBox->clearText();
 	label->setCaption("Press S to start");
 
@@ -59,8 +70,6 @@ AnimationScene::loadScene() {
 
 	mSM->getSceneNode("nCam")->setPosition(Vector3(0, 0, 50));
 	mSM->getSceneNode("nCam")->lookAt(Vector3(0, 0, -1), Ogre::Node::TS_LOCAL);
-
-	mSM->setAmbientLight(ColourValue(1, 1, 1));
 }
 
 void 

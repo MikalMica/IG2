@@ -15,7 +15,7 @@ GameScene::GameScene(Ogre::SceneManager* SM, SinbadExample* cont, Ogre::SceneNod
     auto m_node = root->createChildSceneNode("laberinth");
     auto h_node = root->createChildSceneNode("hero");
     mHero = new Hero(Vector3(0, 0, 0), h_node, mSM);
-    mLaberinth = new Laberinth(Vector3(0, 0, 0), m_node, mSM, cont, mHero, mInfoText);
+    mLaberinth = new Laberinth(root, Vector3(0, 0, 0), m_node, mSM, cont, mHero, mInfoText);
     mHero->setLaberinth(mLaberinth);
     mLaberinth->GenerateLaberinth("stage1");
     mStageLabel->setCaption("stage1");

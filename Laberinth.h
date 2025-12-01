@@ -17,6 +17,7 @@ class Laberinth : public IG2Object
 	Ogre::SceneNode* mLightNode = nullptr;
 	SinbadExample* context = nullptr;
 
+	SceneNode* root;
 	Hero* hero;
 	double wallSize;
 	std::vector<std::vector<bool>> map;
@@ -34,8 +35,8 @@ class Laberinth : public IG2Object
 
 	bool isPositionValid(Vector2 pos);
 public:
-	Laberinth(Vector3 initPos, Ogre::SceneNode* node, Ogre::SceneManager* sceneMng, SinbadExample* cont, Hero* h, OgreBites::TextBox* text, std::string Fmat = "FloorMat", std::string Wmat = "WallMat")
-		: IG2Object(initPos, node, sceneMng), context(cont), hero(h), wallSize(0), floorMat(Fmat), wallMat(Wmat), info(text)
+	Laberinth(SceneNode* ro, Vector3 initPos, Ogre::SceneNode* node, Ogre::SceneManager* sceneMng, SinbadExample* cont, Hero* h, OgreBites::TextBox* text, std::string Fmat = "FloorMat", std::string Wmat = "WallMat")
+		: IG2Object(initPos, node, sceneMng), context(cont), hero(h), wallSize(0), floorMat(Fmat), wallMat(Wmat), info(text), root(ro)
 	{
 	};
 	~Laberinth() 

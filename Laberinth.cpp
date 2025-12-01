@@ -33,7 +33,7 @@ Laberinth::GenerateLaberinth(std::string in)
 
 		luz->setType(Ogre::Light::LT_DIRECTIONAL);
 
-		mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
+		mLightNode = root->createChildSceneNode("nLuz");
 		mLightNode->attachObject(luz);
 		mLightNode->setDirection(Ogre::Vector3(-1, -1, 10));
 	}
