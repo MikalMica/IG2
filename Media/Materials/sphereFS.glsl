@@ -39,16 +39,20 @@ void main(){
         discard;
     }
     
+    vec3 viewVertex = vec3(modelViewMat * vVertex);
+    vec3 viewNormal = normalize(normalMat * vNormal);
+    vec3 ambient = lightAmbient*materialDiffuse;
+    vec3 diffuse;
+    
     if(!front){ 
         color = normalize(vNormal * lightDirection);
+        diffuse = diff(viewVertex, -viewNormal)*lightDiffuse*materialDiffuse;
     }
     else{
-        vec3 viewVertex = vec3(modelViewMat * vVertex);
-        vec3 viewNormal = normalize(normalMat * vNormal);
-        vec3 ambient = lightAmbient*materialDiffuse;
-        vec3 diffuse = diff(viewVertex, viewNormal)*lightDiffuse*materialDiffuse;
-        color = color * (ambient + diffuse);
+        diffuse = diff(viewVertex, viewNormal)*lightDiffuse*materialDiffuse;
     } 
+    
+    color = color * (ambient + diffuse);
 
     fFragColor = vec4(color,1.0);
 }
