@@ -23,7 +23,7 @@ AnimationScene::AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, Scen
 	
 	Sinbad = new IG2Object(Vector3(0, 0, 0), SinbadNode, mSM, "Sinbad.mesh");
 	OgreHead = new IG2Object(Vector3(-20, 0, 0), OgreHeadNode, mSM, "ogrehead.mesh");
-	Sphere = new IG2Object(Vector3(0, 0, -10), root->createChildSceneNode("corrosionSphere"), mSM, "uv_sphere.mesh");
+	Sphere = new IG2Object(Vector3(0, 0, -20), root->createChildSceneNode("corrosionSphere"), mSM, "uv_sphere.mesh");
 	Sphere->setScale(Vector3(0.1, 0.1, 0.1));
 	Sphere->setMaterialName("sphere");
 	RsinbadSword = mSM->createEntity("Sword.mesh");
