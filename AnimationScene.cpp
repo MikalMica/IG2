@@ -16,7 +16,7 @@ AnimationScene::AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, Scen
 
 	auto mLightNode = root->createChildSceneNode("nLuzAnim");
 	mLightNode->attachObject(luz);
-	mLightNode->setDirection(Ogre::Vector3(-1, -1, -1));
+	mLightNode->setDirection(Ogre::Vector3(1, 1, -1));
 
 	SinbadNode = root->createChildSceneNode("sinbadAnim");
 	OgreHeadNode = root->createChildSceneNode("ogrehead");

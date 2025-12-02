@@ -40,7 +40,7 @@ void main(){
     }
     
     if(!front){ 
-        color = normalize(vVertex.rgb * lightDirection);
+        color = normalize(vNormal * lightDirection);
     }
     else{
         vec3 viewVertex = vec3(modelViewMat * vVertex);
