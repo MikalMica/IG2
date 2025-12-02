@@ -14,9 +14,9 @@ AnimationScene::AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, Scen
 	luz->setDiffuseColour(0.75, 0.75, 0.75);
 	luz->setType(Ogre::Light::LT_DIRECTIONAL);
 
-	auto mLightNode = root->createChildSceneNode("nLuzAnim");
-	mLightNode->attachObject(luz);
-	mLightNode->setDirection(Ogre::Vector3(1, 1, -1));
+	auto LightNode = root->createChildSceneNode("nLuzAnim");
+	LightNode->attachObject(luz);
+	LightNode->setDirection(Ogre::Vector3(1, 1, -1));
 
 	SinbadNode = root->createChildSceneNode("sinbadAnim");
 	OgreHeadNode = root->createChildSceneNode("ogrehead");

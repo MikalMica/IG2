@@ -13,7 +13,6 @@ class AnimationScene : public Scene
 	IG2Object* Sphere = nullptr;
 	IG2Object* Sinbad = nullptr;
 	IG2Object* OgreHead = nullptr;
-	Ogre::SceneNode* LightNode = nullptr;
 	Ogre::SceneNode* SinbadNode = nullptr;
 	Ogre::SceneNode* OgreHeadNode = nullptr;
 	AnimationState* SinbadAnimState = nullptr;
@@ -29,7 +28,6 @@ public:
 	AnimationScene(Ogre::SceneManager* SM, SinbadExample* cont, SceneNode* ro, OgreBites::Label* lab, OgreBites::TextBox* text);
 
 	~AnimationScene() {
-		delete LightNode; LightNode = nullptr;
 		delete Sinbad; Sinbad = nullptr;
 		delete OgreHead; OgreHead = nullptr;
 		delete plane; plane = nullptr;

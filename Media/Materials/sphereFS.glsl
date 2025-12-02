@@ -22,8 +22,10 @@ out vec4 fFragColor;
 
 float diff(vec3 cVertex, vec3 cNormal){
     vec3 lightDir = lightPosition.xyz;
+
     if (lightPosition.w == 1)
-    lightDir = lightPosition.xyz - cVertex;
+        lightDir = lightPosition.xyz - cVertex;
+    
     return max(dot(cNormal, normalize(lightDir)), 0.0);
 } 
 
